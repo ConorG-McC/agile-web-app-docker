@@ -1,0 +1,66 @@
+<body>
+    <main class="flex flex-col items-center p-8">
+        <div class="grid grid-cols-2 gap-4"> 
+        <!-- Display user details from the decoded JWT token -->
+        <label class="text-xl py-2 mr-2">Employee ID: </label>
+        <input
+            class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+            type="text"
+            value="<%= result.currentUser.employee_id %>"
+            readonly
+        />
+        <label class="text-xl py-2 mr-2">Username: </label>
+        <input
+        class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+        type="text"
+            value="<%= result.currentUser.username %>"
+            readonly
+        />
+        <label class="text-xl py-2 mr-2">Password: </label>
+        <input
+        class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+        type="password"
+            value="<%= result.currentUser.password %>"
+            readonly
+        />
+        <label class="text-xl py-2 mr-2">Full Name: </label>
+        <input
+        class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+        type="text"
+            value="<%= result.currentUser.first_name %> <%= result.currentUser.last_name %>"
+            readonly
+        />
+
+        <label class="text-xl py-2 mr-2">Job Role: </label>
+        <input
+        class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+        type="text"
+            value="<%= result.currentUser.job_role.job_role_name %>"
+            readonly
+        />
+        <label class="text-xl py-2 mr-2">System Role: </label>
+        <input
+        class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+        type="text"
+            value="<%= result.currentUser.system_role.system_role_name %>"
+            readonly
+        />
+    </main>
+        </div>
+    <div class="flex justify-center space-x-1 mb-4" style="padding: 10px">
+        <!-- edit button action -->
+        <form action="/userDetails/editCurrentUser" method="POST">
+            <input
+                type="hidden"
+                name="employee_id"
+                value="<%= result.currentUser.employee_id %>"
+                />
+            <div class="rounded-l" style="padding-top: 10px;">
+                <input
+                    type="submit"
+                    value="Edit My Details"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 text-xl rounded focus:outline-none focus:ring-1 focus:ring-black"
+                />
+            </div>
+        </form>
+</body>

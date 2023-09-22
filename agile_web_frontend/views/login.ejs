@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <%- include('../views/partials/head') %>
+    </head>
+    <body class="bg-gray-900 flex justify-center items-center h-screen">
+        <main class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+            <h1 class="text-4xl font-extrabold text-center mb-8">Login</h1>
+            <form action="/login" method="POST">
+                <input
+                    class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-300 bg-black text-white"
+                    type="text"
+                    name="username"
+                    value=""
+                    maxlength="20"
+                    placeholder="User name"
+                    required
+                    autofocus
+                /><br />
+                <input
+                    class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-300 bg-black text-white"
+                    type="password"
+                    name="password"
+                    value=""
+                    placeholder="Password"
+                    required
+                />
+                <br />
+                <input
+                    type="submit"
+                    value="Submit"
+                    class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded-lg text-lg focus:outline-none"
+                />
+            </form>
+            <% if (typeof errorMessage!= "undefined"){ %>
+            <div role="alert" class="mt-4">
+                <div class="text-xl bg-red-600 text-white font-bold rounded-t px-4 py-2">
+                    Error - <%= errorMessage %>
+                </div>
+            </div>
+            <% } %>
+        </main>
+    </body>
+</html>

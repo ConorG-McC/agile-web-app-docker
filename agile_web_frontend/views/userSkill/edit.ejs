@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head') %>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        </header>
+    </head>
+    <body>
+        <% if (result.currentUser.system_role.system_role_name.toLowerCase() === 'manager') { %>
+            <header aria-label="Manager Header"><%- include('../partials/ManagerHeader.ejs') %></header>
+        <% } else if (result.currentUser.system_role.system_role_name.toLowerCase() === 'staff') { %>
+            <header aria-label="Staff Header"><%- include('../partials/StaffHeader.ejs') %></header>
+        <% } %>
+        <main class="flex flex-col items-center p-8">
+            <h1 class="text-4xl font-extrabold leading-loose px-4" aria-label="Edit My Skills Page Title">Edit My Skills</h1>
+            <form action="/userSkill/edit" method="POST">
+                <div class="grid grid-cols-2 gap-4"> 
+                <input type="hidden"
+                name="employee_skill_id"
+                value="<%= result.result.data.employee_skill_id %>"
+                aria-hidden="true">
+                <input type="hidden"
+                name="employee_id"
+                value="<%= result.currentUser.employee_id %>"
+                aria-hidden="true">
+
+                <!-- Skills -->
+                <label class="text-xl py-2 mr-2" aria-label="Select Skill Label">Skill:</label>
+                <select name="skill_id" class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80" aria-label="Select Skill Dropdown">
+                <% result.skills.data.forEach(function(row) { %>
+                    <option value="<%= row.skill_id %>"
+                        <% if(row.skill_id==result.result.data.skill_id)
+                            {%>selected<%} %>
+                        ><%= row.skill_name %>
+                    </option>
+                    <% 
+                }); 
+                %>
+                </select>
+
+                <!-- Skills Level -->
+                <label class="text-xl py-2 mr-2" aria-label="Select Skill Level Label">Skill Level</label>
+                <select name="employee_skill_level_id" class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80" aria-label="Select Skill Level Dropdown">
+                <% result.skillLevels.data.forEach(function(row) { %>
+                    <option value="<%=row.employee_skill_level_id%>"
+                        <% if(row.employee_skill_level_id==result.result.data.employee_skill_level_id)
+                            {%>selected<%} %>
+                        ><%=row.employee_skill_level_name%>
+                    </option>
+                    <%
+                });
+                %>
+                </select>
+
+                <!-- Expiry Date -->
+                <label class="text-xl py-2 mr-2" aria-label="Enter Expiry Date Label">Expiry Date</label>
+                <input type="text" value="<%= result.result.data.employee_skill_expiry %>" id="employee_skill_expiry" name="employee_skill_expiry" class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80" aria-label="Enter Expiry Date Input">
+                </div>
+                <div class="flex justify-center mt-4">
+                <input 
+                class="bg-green-700 hover:bg-green-800 text-white px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                type="submit" value="Submit" aria-label="Submit Button" />
+                </form>
+                </div>
+            <% if (typeof errorMessage != "undefined") { %>
+                <div role="alert">
+                    &nbsp;
+                    <div class="text-2xl bg-red-600 text-white font-bold rounded-t px-4 py-2" aria-label="Error Message">
+                        Error - <%= errorMessage %>
+                    </div>
+                    &nbsp;
+                </div>
+            <% } %>
+        </main>
+        <footer><%- include('../partials/footer') %></footer>
+        <script>
+            $(document).ready(function() {
+                $("#employee_skill_expiry").datepicker({dateFormat: 'yy-mm-dd'}); 
+            });
+        </script>
+    </body>
+</html>

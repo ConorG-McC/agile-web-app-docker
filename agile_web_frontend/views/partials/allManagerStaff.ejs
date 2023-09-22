@@ -1,0 +1,53 @@
+<div class="flex items-center justify-center">
+    <div class="table-container" style="max-height: 30rem; overflow-y: auto">
+        <table class="table-auto text-xs sm:text-sm md:text-base lg:text-lg">
+            <thead style="position: sticky; top: 0; background-color: #ffffff">
+                <tr>
+                    <th class="px-4 py-2">Manager ID</th>
+                    <th class="px-4 py-2">Manager First Name</th>
+                    <th class="px-4 py-2">Manager Last Name</th>
+                    <th colspan="2"></th>
+                    <th class="px-4 py-2">Staff ID</th>
+                    <th class="px-4 py-2">Staff First Name</th>
+                    <th class="px-4 py-2">Staff Last Name</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- loop through each of the rows returned-->
+                <% result.managerStaff.data.forEach(function(row) { %>
+                <tr>
+                    <td class="border px-4 py-2"><%= row.manager_id %></td>
+                    <td class="border px-4 py-2"><%= row.Manager.first_name %></td>
+                    <td class="border px-4 py-2"><%= row.Manager.last_name %></td>
+                    <th colspan="2"></th>
+                    <td class="border px-4 py-2"><%= row.staff_id %></td>
+                    <td class="border px-4 py-2"><%= row.Staff.first_name %></td>
+                    <td class="border px-4 py-2"><%= row.Staff.last_name %></td>
+                    <td class="border px-4 py-2">
+                        <!-- delete button action -->
+                        <form action="/managerStaff/delete" method="POST">
+                            <input type="hidden" name="manager_id" value="<%=row.manager_id %>" />
+                            <input type="hidden" name="staff_id" value="<%=row.staff_id %>" />
+                            <input
+                                type="submit"
+                                value="Delete"
+                                class="bg-red-600 hover:bg-red-700 text-white px-2 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                            />
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="flex justify-center mt-4">
+    <form action="/managerStaff/addPage">
+        <input
+            type="submit"
+            value="Assign Staff To A Manager"
+            class="bg-green-700 hover:bg-green-800 text-white px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+        />
+    </form>
+</div>

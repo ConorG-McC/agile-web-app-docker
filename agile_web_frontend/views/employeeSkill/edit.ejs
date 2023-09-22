@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <header><%- include('../partials/ManagerHeader.ejs') %>
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        </header>
+        <main class="flex flex-col items-center p-8">
+            <h1 class="text-4xl font-extrabold leading-loose px-4">Edit Employee Skill</h1>
+            <form action="/employeeSkill/edit" method="POST">
+                <div class="grid grid-cols-2 gap-4"> 
+                <input type="hidden"
+                name="employee_skill_id"
+                value="<%= result.data.employee_skill_id %>">
+
+                            <!-- Employee -->
+                <label class="text-xl py-2 mr-2">Employee:</label>
+                <select name="employee_id" class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80">
+                <% employees.data.forEach(function(row) { %>
+                    <option value="<%=row.employee_id%>"
+                        <% if(row.employee_id==result.data.employee_id)
+                            {%>selected<%} %>
+                        ><%= row.first_name %> <%= row.last_name %>
+                    </option>
+                    <% }); %>
+            </select>
+
+            <!-- Skill -->
+            <label class="text-xl py-2 mr-2">Skill:</label>
+                <select name="skill_id" class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80">
+                <% skills.data.forEach(function(row) { %>
+                    <option value="<%= row.skill_id %>"
+                        <% if(row.skill_id==result.data.skill_id)
+                            {%>selected<%} %>
+                        ><%= row.skill_name %>
+                    </option>
+                    <% 
+                }); 
+                %>
+                </select>
+
+                <!-- Skill Level -->
+                <label class="text-xl py-2 mr-2">Skill Level:</label>
+                <select name="employee_skill_level_id" class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80">
+                <% skillLevels.data.forEach(function(row) { %>
+                    <option value="<%=row.employee_skill_level_id%>"
+                        <% if(row.employee_skill_level_id==result.data.employee_skill_level_id)
+                            {%>selected<%} %>
+                        ><%=row.employee_skill_level_name%>
+                    </option>
+                    <%
+                });
+                %>
+                </select>
+
+                <!-- Expiry Date -->
+                <label class="text-xl py-2 mr-2">Expiry Date:</label>
+                <input type="text" value="<%= result.data.employee_skill_expiry %>" id="employee_skill_expiry" name="employee_skill_expiry" class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80">
+                </div>
+                <div class="flex justify-center space-x-1 mb-4" style="padding: 10px">
+                <input 
+                class="bg-green-700 hover:bg-green-800 text-white px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                type="submit" value="Submit" />
+                 </form>
+                </div>
+            <% if (typeof errorMessage != "undefined") { %>
+                <div role="alert">
+                    &nbsp;
+                    <div class="text-2xl bg-red-600 text-white font-bold rounded-t px-4 py-2">
+                        Error - <%= errorMessage %>
+                    </div>
+                    &nbsp;
+                </div>
+            <% } %>
+        </main>
+        <footer><%- include('../partials/footer') %></footer>
+        <script>
+            $(document).ready(function() {
+                $("#employee_skill_expiry").datepicker({dateFormat: 'yy-mm-dd'}); 
+            });
+        </script>
+    </body>
+</html>

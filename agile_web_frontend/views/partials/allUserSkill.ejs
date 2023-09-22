@@ -1,0 +1,79 @@
+<% if (result.errorMessage == null){ %>
+<body>
+    <div class="flex items-center justify-center">
+        <div class="table-container" style="max-height: 30rem; overflow-y: auto">
+            <table class="table-auto text-xs sm:text-sm md:text-base lg:text-lg">
+                <thead style="position: sticky; top: 0; background-color: #ffffff">
+                    <tr>
+                        <th class="px-2 py-2" aria-label="Employee Skill ID">Employee Skill ID</th>
+                        <th class="px-2 py-2" aria-label="Skill Name">Skill Name</th>
+                        <th class="px-2 py-2" aria-label="Employee Skill Level">Employee Skill Level</th>
+                        <th class="px-2 py-2" aria-label="Employee Skill Expiry">Employee Skill Expiry</th>
+                        <th class="px-2 py-2" aria-label="Actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- loop through each of the rows returned -->
+                    <% result.employeeSkill.data.forEach(function(row) { %>
+                    <tr>
+                        <td class="border px-2 py-2"><%= row.employee_skill_id %></td>
+                        <td class="border px-2 py-1"><%= row.skill.skill_name %></td>
+                        <td class="border px-2 py-1"><%= row.employee_skill_level.employee_skill_level_name %></td>
+                        <td class="border px-2 py-1"><%= row.employee_skill_expiry %></td>
+                        <td class="border px-2 py-1">
+                            <div class="flex space-x-1">
+                            <!-- edit button action -->
+                            <form action="/userSkill/getById" method="POST">
+                                <input
+                                    type="hidden"
+                                    name="employee_skill_id"
+                                    value="<%=row.employee_skill_id %>"
+                                />
+                                <div class="rounded-l">
+                                    <input
+                                        type="submit"
+                                        value="Edit"
+                                        class="bg-blue-600 hover:bg-blue-700 text-white px-1 py-1 sm:px-2 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                                        aria-label="Assign a user skill button"
+                                    />
+                                </div>
+                            </form>
+                            <!-- delete button action -->
+                            <form action="/userSkill/delete" method="POST">
+                                <input
+                                    type="hidden"
+                                    name="employee_skill_id"
+                                    value="<%=row.employee_skill_id %>"
+                                />
+                                <div class="rounded-r">
+                                    <input
+                                        type="submit"
+                                        value="Delete"
+                                        class="bg-red-600 hover:bg-red-700 text-white px-1 py-1 sm:px-2 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                                        aria-label="Delete a user skill button"
+                                    />
+                                </div>
+                            </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+<% } %>
+
+    </div>
+    <div class="flex justify-center mt-4">
+        <form action="/userSkill/addPage">
+            <button
+                type="submit"
+                class="bg-green-700 hover:bg-green-800 text-white px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                aria-label="Assign a Skill Button"
+            >
+                Assign a Skill
+            </button>
+        </form>
+    </div>
+</body>
+</html>

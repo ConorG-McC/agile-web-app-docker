@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+        <header>
+            <header><%- include('../partials/ManagerHeader.ejs') %></header>
+        </header>
+        <main class="flex flex-col items-center p-8">
+            <h1 class="text-4xl font-extrabold leading-loose px-4">Edit a Category</h1>
+        
+            <form
+                action="/skillCategory/edit"
+                method="POST"
+                class="flex flex-col items-center mt-8"
+            >
+            <div class="grid grid-cols-2 gap-4"> 
+                <input
+                    type="hidden"
+                    name="skill_category_id"
+                    value="<%= result.data.skill_category_id %>"
+                />
+
+                <label class="text-xl py-2 mr-2">Skill Category Name:</label>
+                <input
+                    class="bg-black text-white px-4 py-2 rounded-lg mb-4 w-80"
+                    type="text"
+                    name="skill_category_name"
+                    value="<%= result.data.skill_category_name %>"
+                    placeholder="Enter in the format Aaaa"
+                    pattern="[A-Z]{1}[A-Za-z ]{1,}"
+                    maxlength="20"
+                    required
+                    autofocus
+                />
+            </div>
+            <div class="flex justify-center space-x-1 mb-4" style="padding: 10px">
+                <input
+                    type="submit"
+                    value="Submit"
+                    class="bg-green-700 hover:bg-green-800 text-white px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                    />
+            </form>
+        </div>
+            <% if (typeof errorMessage != "undefined") { %>
+            <div role="alert" class="mt-4">
+                <div class="text-2xl bg-red-600 text-white font-bold rounded-t px-4 py-2">
+                    Error - <%= errorMessage %>
+                </div>
+            </div>
+            <% } %>
+        </main>
+        <footer><%- include('../partials/footer') %></footer>
+    </body>
+</html>

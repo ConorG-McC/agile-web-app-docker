@@ -1,0 +1,75 @@
+<div class="flex items-center justify-center">
+    <div class="table-container" style="max-height: 30rem; overflow-y: auto">
+        <table class="table-auto text-xs sm:text-sm md:text-base lg:text-lg">
+            <thead style="position: sticky; top: 0; background-color: #ffffff">
+                <tr>
+                    <th class="px-2 py-1">Employee ID</th>
+                    <th class="px-2 py-1">First Name</th>
+                    <th class="px-2 py-1">Last Name</th>
+                    <th class="px-2 py-1">Username</th>
+                    <th class="px-2 py-1">Password</th>
+                    <th class="px-2 py-1">Job Role</th>
+                    <th class="px-2 py-1">System Role</th>
+                    <th class="px-2 py-1">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- loop through each of the rows returned-->
+                <% result.employee.data.forEach(function(row) { %>
+                <tr>
+                    <td class="border px-2 py-1"><%= row.employee_id %></td>
+                    <td class="border px-2 py-1"><%= row.first_name %></td>
+                    <td class="border px-2 py-1"><%= row.last_name %></td>
+                    <td class="border px-2 py-1"><%= row.username %></td>
+                    <td class="border px-2 py-1"><%= row.password %></td>
+                    <td class="border px-2 py-1"><%= row.job_role.job_role_name %></td>
+                    <td class="border px-2 py-1"><%= row.system_role.system_role_name %></td>
+                    <td class="border px-2 py-1">
+                        <div class="flex space-x-1">
+                            <!-- edit button action -->
+                            <form action="/employee/getById" method="POST">
+                                <input
+                                    type="hidden"
+                                    name="employee_id"
+                                    value="<%=row.employee_id %>"
+                                />
+                                <div class="rounded-l">
+                                    <input
+                                        type="submit"
+                                        value="Edit"
+                                        class="bg-blue-600 hover:bg-blue-700 text-white px-1 py-1 sm:px-2 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                                    />
+                                </div>
+                            </form>
+                            <!-- delete button action -->
+                            <form action="/employee/delete" method="POST">
+                                <input
+                                    type="hidden"
+                                    name="employee_id"
+                                    value="<%=row.employee_id %>"
+                                />
+                                <div class="rounded-r">
+                                    <input
+                                        type="submit"
+                                        value="Delete"
+                                        class="bg-red-600 hover:bg-red-700 text-white px-1 py-1 sm:px-2 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                                    />
+                                </div>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="flex justify-center mt-4">
+    <form action="/employee/addPage">
+        <input
+            type="submit"
+            value="Add Employee"
+            class="bg-green-700 hover:bg-green-800 text-white px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+        />
+    </form>
+</div>

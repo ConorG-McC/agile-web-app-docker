@@ -1,0 +1,41 @@
+version: '3'
+services:
+  agile_web_backend:
+    build: ./agile_web_backend
+    image: conorgmcc/agile_web_backend:latest
+    environment:
+      - BACKEND_PORT=${BACKEND_PORT}
+    expose:
+      - ${BACKEND_PORT}
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    volumes:
+      - ./agile_web_backend:/app/agile_web_backend
+    networks:
+      - agile-web-network
+    hostname: agile-web-backend
+    container_name: agile-web-backend-container
+    command: npm start
+
+  agile_web_frontend:
+    build: ./agile_web_frontend
+    image: conorgmcc/agile_web_frontend:latest
+    environment:
+      - FRONTEND_PORT=${FRONTEND_PORT}
+    expose:
+      - ${FRONTEND_PORT}
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    volumes:
+      - ./agile_web_frontend:/app/agile_web_frontend
+    links:
+      - agile_web_backend
+    networks:
+      - agile-web-network
+    hostname: agile-web-frontend
+    container_name: agile-web-frontend-container
+    command: npm start
+networks:
+  agile-web-network:
+    external: true
+  

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <% if (result.currentUser.system_role.system_role_name.toLowerCase() === 'manager') { %>
+            <header aria-label="Manager Header"><%- include('../partials/ManagerHeader.ejs') %></header>
+        <% } else if (result.currentUser.system_role.system_role_name.toLowerCase() === 'staff') { %>
+            <header aria-label="Staff Header"><%- include('../partials/StaffHeader.ejs') %></header>
+        <% } %>        
+        <main class="flex flex-col items-center p-8">
+            <h1 class="text-4xl font-extrabold leading-loose px-4">Edit My Details</h1>
+            <form action="/userDetails/edit" method="POST" class="flex flex-col items-center mt-8">
+                <div class="grid grid-cols-2 gap-4"> 
+                <input type="hidden" name="employee_id" value="<%= currentUser.employee_id %>" />
+
+                <label class="text-xl py-2 mr-2">First Name:</label>
+                <input
+                    class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+                    type="text"
+                    name="first_name"
+                    value="<%= currentUser.first_name %>"
+                    placeholder="Enter in the format Aaaa"
+                    pattern="[A-Z]{1}[A-Za-z ]{1,}"
+                    maxlength="20"
+                    required
+                    autofocus
+                />
+                <label class="text-xl py-2 mr-2">Last Name:</label>
+                <input
+                    class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+                    type="text"
+                    name="last_name"
+                    value="<%= currentUser.last_name %>"
+                    placeholder="Enter in the format Aaaa"
+                    pattern="[A-Z]{1}[A-Za-z ]{1,}"
+                    maxlength="20"
+                    required
+                    autofocus
+                />
+                <label class="text-xl py-2 mr-2">Username:</label>
+                <input
+                    class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+                    type="text"
+                    name="username"
+                    value="<%= currentUser.username %>"
+                    placeholder="Enter in the format Aaaa"
+                    pattern="[A-Z]{1}[A-Za-z ]{1,}"
+                    maxlength="20"
+                    required
+                    autofocus
+                />
+                <label class="text-xl py-2 mr-2">Password:</label>
+                <input
+                    class="bg-black text-white px-4 py-2 rounded-lg mb-2 w-80"
+                    type="text"
+                    name="password"
+                    value="<%= currentUser.password %>"
+                    placeholder="Enter in the format Aaaa"
+                    pattern="[A-Z]{1}[A-Za-z ]{1,}"
+                    maxlength="20"
+                    required
+                    autofocus
+                />
+                <input
+                    type="hidden"
+                    name="job_role_id"
+                    value="<%= currentUser.job_role.job_role_id %>"
+                />
+                <input
+                    type="hidden"
+                    name="system_role_id"
+                    value="<%= currentUser.system_role.system_role_id %>"
+                />
+                </div> <div>
+                <p class="text-red-600 text-xl" style="padding: 10px">
+                    You will be returned to the login page after submitting
+                </p>
+            </div>
+            <div class="flex justify-center space-x-1 mb-4" style="padding: 10px">
+                <input
+                    type="submit"
+                    value="Submit"
+                    class="bg-green-700 hover:bg-green-800 text-white px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg rounded focus:outline-none focus:ring-1 focus:ring-black"
+                    />
+            </form>
+        </div>
+            <% if (typeof errorMessage != "undefined") { %>
+            <div role="alert" class="mt-4">
+                <div class="text-2xl bg-red-600 text-white font-bold rounded-t px-4 py-2">
+                    Error - <%= errorMessage %>
+                </div>
+            </div>
+            <% } %>
+        </main>
+        <footer><%- include('../partials/footer') %></footer>
+    </body>
+</html>

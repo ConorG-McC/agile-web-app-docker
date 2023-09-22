@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <%- include('../views/partials/head') %>
+    </head>
+    <body class="bg-gray-900 flex justify-center items-center h-screen">
+        <main class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg text-center mt-8">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-8">Welcome to Skills Auditor</h1>
+            <p class="text-gray-700 mb-4">Please select one of the options to get started</p>
+            <div class="space-y-4">
+                <a
+                    class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                    href="/userDetails"
+                    aria-label="My Details"
+                    >My Details</a
+                >
+                <a
+                    href="/userSkill"
+                    class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                >
+                    My Skills
+                </a>
+                <% if (result.currentUser.system_role.system_role_name.toLowerCase() === 'manager')
+                { %>
+                <a
+                    href="/skill"
+                    class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                >
+                    Skills
+                </a>
+                <a
+                    href="/skillCategory"
+                    class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                >
+                    Skill Categories
+                </a>
+                <a
+                    href="/employee"
+                    class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                >
+                    Employees
+                </a>
+                <a
+                    href="/employeeSkill"
+                    class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                >
+                    Employee Skills
+                </a>
+                <a
+                    href="/managerStaff"
+                    class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                >
+                    Manager Staff Assignments
+                </a>
+
+                <% } else if (result.currentUser.system_role.system_role_name.toLowerCase() ===
+                'staff') { %> <% } %>
+                <a
+                    class="block bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:text-xl"
+                    href="/"
+                    aria-label="Logout"
+                    >Logout
+                </a>
+            </div>
+        </main>
+    </body>
+</html>
