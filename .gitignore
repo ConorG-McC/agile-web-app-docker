@@ -3,3 +3,4 @@ node_modules/
 .prettierrc
 .npmrc
 start.bat
+.DS_Store
