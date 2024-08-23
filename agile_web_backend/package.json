@@ -23,7 +23,7 @@
         "mysql2": "^3.9.8",
         "nodemon": "^3.1.4",
         "prettier": "^3.0.0",
-        "sequelize": "^6.32.0"
+        "sequelize": "^6.37.3"
     },
     "devDependencies": {
         "eslint": "^8.42.0",
