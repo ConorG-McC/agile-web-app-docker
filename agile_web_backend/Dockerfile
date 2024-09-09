@@ -1,4 +1,4 @@
-FROM node:18.17.1
+FROM node:22.8.0
 
 # Set the working directory in the container
 RUN mkdir -p /app/agile_web_backend
