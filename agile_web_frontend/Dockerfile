@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:22.9.0
+FROM node:23.2.0
 
 # Set the working directory in the container
 RUN mkdir -p /app/agile_web_frontend
